@@ -16,7 +16,7 @@ public class ElectionServant implements Election {
 	}
 	
 	@Override
-	public Vector<String> Vote(String nameCandidate, String electorName) throws RemoteException {
+	public synchronized Vector<String> Vote(String nameCandidate, String electorName) throws RemoteException {
 		// TODO Auto-generated method stub
 		System.out.println("Método VOTE");
 		String hashMD5 = getHashMD5(electorName);
@@ -33,13 +33,13 @@ public class ElectionServant implements Election {
 	}
 
 	@Override
-	public int Result(String nameCandidate) throws RemoteException {
+	public synchronized int Result(String nameCandidate) throws RemoteException {
 		// TODO Auto-generated method stub
 		int numVotes = Collections.frequency(candidateList, nameCandidate);
 		return numVotes;
 	}
 	
-	private String getHashMD5(String name) throws RemoteException {
+	private synchronized String getHashMD5(String name) throws RemoteException {
 		System.out.println("Método HASH");
 		String nomeEleitor = name;
 		String hashMd5 = null;

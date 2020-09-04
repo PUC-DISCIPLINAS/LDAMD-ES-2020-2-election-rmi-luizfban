@@ -7,6 +7,7 @@ public class ElectionServer {
 	public static void main(String args[]) {
 		// TODO Auto-generated method stub	
 		try {
+			System.out.println("////////////////////");
 			Election electionServant = new ElectionServant();
 			Election stub = (Election) UnicastRemoteObject.exportObject(electionServant, 0);
 			Registry registry = LocateRegistry.getRegistry();
