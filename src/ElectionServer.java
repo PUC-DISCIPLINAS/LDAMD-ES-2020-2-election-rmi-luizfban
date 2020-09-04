@@ -11,7 +11,7 @@ public class ElectionServer {
 			Election stub = (Election) UnicastRemoteObject.exportObject(electionServant, 0);
 			Registry registry = LocateRegistry.getRegistry();
 			registry.rebind("Election", stub);
-			System.out.println("Servidor Election pronto...");
+			System.out.println("Servidor Election pronto.");
 		} catch (Exception e) {
 			System.err.println("ElectionServer: método main " + e.getMessage());
 			e.printStackTrace();

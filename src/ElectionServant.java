@@ -6,24 +6,27 @@ import java.util.Collections;
 import java.util.Vector;
 
 public class ElectionServant implements Election {
-
+	
 	private Vector<String> candidateList;
 	private Vector<String> hashList;
 	
 	public ElectionServant() throws RemoteException {
 		candidateList = new Vector<String>();
+		hashList = new Vector<String>();
 	}
 	
 	@Override
 	public Vector<String> Vote(String nameCandidate, String electorName) throws RemoteException {
 		// TODO Auto-generated method stub
-		System.out.println("METODO VOTE");
+		System.out.println("Método VOTE");
 		String hashMD5 = getHashMD5(electorName);
+		System.out.println("Hash Coletada");
 		if(hashList.contains(hashMD5)) {
-			
+			System.out.println("Eleitor Repetido - Já Votou");
 		}else {	
 			hashList.addElement(hashMD5);
 			candidateList.addElement(nameCandidate);	
+			System.out.println("Eleitor Novo - Voto Realizado");
 			return candidateList;
 		}
 		return null;
@@ -32,13 +35,12 @@ public class ElectionServant implements Election {
 	@Override
 	public int Result(String nameCandidate) throws RemoteException {
 		// TODO Auto-generated method stub
-		System.out.println("METODO RESULT");
 		int numVotes = Collections.frequency(candidateList, nameCandidate);
 		return numVotes;
 	}
 	
-	private String getHashMD5(String name){
-		System.out.println("HASH");
+	private String getHashMD5(String name) throws RemoteException {
+		System.out.println("Método HASH");
 		String nomeEleitor = name;
 		String hashMd5 = null;
 
@@ -53,11 +55,10 @@ public class ElectionServant implements Election {
 	         hashMd5 = String.format("%022x", numMd5); 
 	               
 	         System.out.println("Nome: " + nomeEleitor + "\nMD5: " + hashMd5);
+	         return hashMd5;
 	      } catch (NoSuchAlgorithmException e) {
 	         throw new RuntimeException(e);
 	      }
-		
-		return hashMd5;
 	}
 	
 
